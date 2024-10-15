@@ -21,7 +21,7 @@ def write_to_csv(filename, data):
         writer = csv.writer(csvfile)
         writer.writerows(data)
 
-num_lines = 1450 # number of lines to be randomly selected for qualitative analysis
+num_lines = 550 # number of lines to be randomly selected for qualitative analysis
 
 selected_data = select_random_lines(csv_filename, num_lines)
 if selected_data:
