@@ -1,0 +1,31 @@
+import csv
+import random
+
+csv_filename = '/content/britishlatinos_comments_fully_ready.csv'
+output_filename = 'output_random_britishlatinos_comments_perceptual.csv'
+
+
+def select_random_lines(csv_filename, num_lines):
+    with open(csv_filename, newline='') as csvfile:
+        reader = list(csv.reader(csvfile))
+        headers = reader[0]  # assuming the first row is the header
+        data = reader[1:]  # excluding the header
+        if num_lines > len(data):
+            print(f"Requested {num_lines} lines, but the file only contains {len(data)} lines.")
+            return []
+        selected_lines = random.sample(data, num_lines)
+        return [headers] + selected_lines
+
+def write_to_csv(filename, data):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(data)
+
+num_lines = 1450 # number of lines to be randomly selected for qualitative analysis
+
+selected_data = select_random_lines(csv_filename, num_lines)
+if selected_data:
+    write_to_csv(output_filename, selected_data)
+    print(f"Successfully wrote {num_lines} random lines to {output_filename}")
+else:
+    print("No lines were selected.")
